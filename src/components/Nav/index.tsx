@@ -1,5 +1,12 @@
-import React, { useState } from "react"
-import { Icon, IconButton, Text, useColorMode } from "@chakra-ui/react"
+import React, { FC, useState } from "react"
+import {
+  Icon,
+  IconButton,
+  Flex,
+  Text,
+  useColorMode,
+  useToken,
+} from "@chakra-ui/react"
 import { MdWbSunny, MdBrightness2, MdLanguage } from "react-icons/md"
 import styled from "@emotion/styled"
 import { cloneDeep } from "lodash"
@@ -19,7 +26,7 @@ import { IItem, ISections } from "./types"
 const NavContainer = styled.div`
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
   width: 100%;
 `
 
@@ -52,15 +59,6 @@ const NavContent = styled.div`
   @media (max-width: ${(props) => props.theme.breakpoints.l}) {
     align-items: center;
     justify-content: space-between;
-  }
-`
-
-const InnerContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  @media (max-width: ${(props) => props.theme.breakpoints.l}) {
-    display: none;
   }
 `
 
@@ -99,10 +97,9 @@ export interface IProps {
 }
 
 // TODO display page title on mobile
-const Nav: React.FC<IProps> = ({ path }) => {
+const Nav: FC<IProps> = ({ path }) => {
   const { colorMode, toggleColorMode } = useColorMode()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const intl = useIntl()
 
   const isDarkTheme = colorMode === "dark"
@@ -224,8 +221,8 @@ const Nav: React.FC<IProps> = ({ path }) => {
               to: "/energy-consumption/",
             },
             {
-              text: "ethereum-upgrades",
-              to: "/upgrades/",
+              text: "ethereum-roadmap",
+              to: "/roadmap/",
             },
             {
               text: "eips",
@@ -364,23 +361,15 @@ const Nav: React.FC<IProps> = ({ path }) => {
   ]
 
   let mobileLinkSections = cloneDeep(linkSections)
-  const handleMenuToggle = (item?: "search" | "menu"): void => {
-    if (item === "menu") {
-      setIsMenuOpen(!isMenuOpen)
-    } else if (item === "search") {
-      setIsSearchOpen(!isSearchOpen)
-    } else {
-      setIsMenuOpen(false)
-      setIsSearchOpen(false)
-    }
-
-    if (isMenuOpen || isSearchOpen) {
-      document.documentElement.style.overflowY = "scroll"
-    } else {
-      document.documentElement.style.overflowY = "hidden"
-    }
+  const toggleMenu = (): void => {
+    setIsMenuOpen((prev) => !prev)
+    document.documentElement.style.overflowY = isMenuOpen ? "scroll" : "hidden"
   }
+  const lgBreakpoint = useToken("breakpoints", "lg")
 
+  const toggleSearch = (): void => {
+    document.getElementsByClassName("DocSearch-Button")[0].click()
+  }
   const shouldShowSubNav = path.includes("/developers/")
   const splitPath = path.split("/")
   const fromPageParameter =
@@ -395,12 +384,16 @@ const Nav: React.FC<IProps> = ({ path }) => {
             <HomeLogo />
           </HomeLogoNavLink>
           {/* Desktop */}
-          <InnerContent>
+          <Flex
+            justifyContent="space-between"
+            w="100%"
+            display={{ base: "none", lg: "flex" }}
+          >
             <LeftItems>
               <Menu path={path} sections={linkSections} />
             </LeftItems>
             <RightItems>
-              <Search useKeyboardShortcut />
+              <Search />
               <IconButton
                 aria-label={
                   isDarkTheme ? "Switch to Light Theme" : "Switch to Dark Theme"
@@ -422,14 +415,14 @@ const Nav: React.FC<IProps> = ({ path }) => {
                 </Text>
               </ButtonLink>
             </RightItems>
-          </InnerContent>
+          </Flex>
           {/* Mobile */}
           <MobileNavMenu
             isMenuOpen={isMenuOpen}
-            isSearchOpen={isSearchOpen}
             isDarkTheme={isDarkTheme}
-            toggleMenu={handleMenuToggle}
+            toggleMenu={toggleMenu}
             toggleTheme={toggleColorMode}
+            toggleSearch={toggleSearch}
             linkSections={mobileLinkSections}
             fromPageParameter={fromPageParameter}
           />

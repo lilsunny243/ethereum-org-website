@@ -4,10 +4,8 @@ import styled from "@emotion/styled"
 import { useIntl } from "react-intl"
 import { motion } from "framer-motion"
 
-import Emoji from "../OldEmoji"
 import Icon from "../Icon"
 import Link from "../Link"
-import Search from "../Search"
 import Translation from "../Translation"
 import { NavLink } from "../SharedStyledComponents"
 import { translateMessageId } from "../../utils/translations"
@@ -53,6 +51,7 @@ const GlyphButton = styled.svg`
   position: relative;
   stroke-width: 2px;
   z-index: 100;
+  pointer-events: ${(props) => props.pointerEvents};
   & > path {
     stroke: ${(props) => props.theme.colors.text};
     fill: none;
@@ -82,32 +81,6 @@ const glyphPathVariants = {
     transition: { duration: 1.2 },
   },
 }
-
-const SearchContainer = styled(MenuContainer)`
-  z-index: 101;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-`
-
-const SearchHeader = styled.h3`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & > svg {
-    fill: ${(props) => props.theme.colors.text};
-  }
-`
-
-const CloseIconContainer = styled.span`
-  z-index: 102;
-  cursor: pointer;
-
-  & > svg {
-    fill: ${(props) => props.theme.colors.text};
-  }
-`
 
 const MenuItems = styled.ul`
   margin: 0;
@@ -227,44 +200,26 @@ const BottomItemText = styled.div`
   }
 `
 
-const BlankSearchState = styled.div`
-  color: ${(props) => props.theme.colors.text};
-  background: ${(props) => props.theme.colors.searchBackgroundEmpty};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10vw;
-  align-self: center;
-  width: 280px;
-  width: min(60vw, 280px);
-  height: 280px;
-  height: min(60vw, 280px);
-  border-radius: 100%;
-`
-
 export interface IProps {
   isMenuOpen: boolean
-  isSearchOpen: boolean
   isDarkTheme: boolean
-  toggleMenu: (item?: "search" | "menu") => void
+  toggleMenu: () => void
   toggleTheme: () => void
+  toggleSearch: () => void
   linkSections: ISections
   fromPageParameter: string
 }
 
 const MobileNavMenu: React.FC<IProps> = ({
   isMenuOpen,
-  isSearchOpen,
   isDarkTheme,
   toggleMenu,
   toggleTheme,
+  toggleSearch,
   linkSections,
   fromPageParameter,
 }) => {
   const intl = useIntl()
-
-  const isOpen = isMenuOpen || isSearchOpen
 
   const handleClick = (): void => {
     toggleMenu()
@@ -278,28 +233,31 @@ const MobileNavMenu: React.FC<IProps> = ({
     >
       <IconButton
         icon={<Icon name="search" />}
-        onClick={() => toggleMenu("search")}
+        onClick={toggleSearch}
         aria-label={translateMessageId("aria-toggle-search-button", intl)}
         variant="icon"
         _hover={{ svg: { fill: "primary" } }}
       />
       <IconButton
         icon={
-          <GlyphButton viewBox="0 0 24 40">
+          <GlyphButton
+            viewBox="0 0 24 40"
+            pointerEvents={isMenuOpen ? "none" : "auto"}
+          >
             <motion.path
               variants={glyphPathVariants}
               initial={false}
-              animate={isOpen ? "open" : "closed"}
+              animate={isMenuOpen ? "open" : "closed"}
             />
           </GlyphButton>
         }
-        onClick={() => toggleMenu("menu")}
+        onClick={toggleMenu}
         aria-label={translateMessageId("aria-toggle-search-button", intl)}
         variant="icon"
         _hover={{ svg: { fill: "primary" } }}
       />
       <MobileModal
-        animate={isOpen ? "open" : "closed"}
+        animate={isMenuOpen ? "open" : "closed"}
         variants={mobileModalVariants}
         initial="closed"
         onClick={handleClick}
@@ -369,7 +327,7 @@ const MobileNavMenu: React.FC<IProps> = ({
         variants={mobileMenuVariants}
         initial="closed"
       >
-        <BottomItem onClick={() => toggleMenu("search")}>
+        <BottomItem onClick={toggleSearch}>
           <Icon name="search" />
           <BottomItemText>
             <Translation id="search" />
@@ -390,23 +348,6 @@ const MobileNavMenu: React.FC<IProps> = ({
           </BottomLink>
         </BottomItem>
       </BottomMenu>
-      <SearchContainer
-        animate={isSearchOpen ? "open" : "closed"}
-        variants={mobileMenuVariants}
-        initial="closed"
-      >
-        <SearchHeader>
-          <Translation id="search" />
-          <CloseIconContainer onClick={() => toggleMenu("search")}>
-            <Icon name="close" />
-          </CloseIconContainer>
-        </SearchHeader>
-        <Search handleSearchSelect={toggleMenu} />
-        <BlankSearchState>
-          <Emoji text=":sailboat:" size={3} />
-          <Translation id="search-box-blank-state-text" />
-        </BlankSearchState>
-      </SearchContainer>
     </Box>
   )
 }
