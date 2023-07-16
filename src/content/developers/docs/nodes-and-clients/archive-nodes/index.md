@@ -9,7 +9,7 @@ An archive node is an instance of an Ethereum client configured to build an arch
 
 ## Prerequisites {#prerequisites}
 
-You should understand the concept of an [Ethereum node](/developers/docs/nodes-and-clients/), [its architecture](/developers/docs/nodes-and-clients/node-architecture/), [sync strategies](https://ethereum.org/en/developers/docs/nodes-and-clients/#sync-modes), practices of [running](/developers/docs/nodes-and-clients/run-a-node/) and [using them](/developers/docs/apis/json-rpc/).
+You should understand the concept of an [Ethereum node](/developers/docs/nodes-and-clients/), [its architecture](/developers/docs/nodes-and-clients/node-architecture/), [sync strategies](/developers/docs/nodes-and-clients/#sync-modes), practices of [running](/developers/docs/nodes-and-clients/run-a-node/) and [using them](/developers/docs/apis/json-rpc/).
 
 ## What is an archive node
 
@@ -52,11 +52,11 @@ There are various free [services](/developers/docs/nodes-and-clients/nodes-as-a-
 
 Archive node in this context means data served by user facing execution layer clients as they handle the state database and provide JSON-RPC endpoints. Configuration options, sync time and database size may vary by client. For details, please refer to the documentation provided by your client.
 
-Before starting your own archive node, learn about the differences between the clients and especially the various [hardware requirements](/developers/docs/nodes-and-clients/run-a-node/#requirements). Most clients are not optimized for this feature and their archives requires more than 12TB of space. In contrast, implementations like Erigon and Akula can store the same data in under 3TB which makes them the most effective way of running an archive node.
+Before starting your own archive node, learn about the differences between the clients and especially the various [hardware requirements](/developers/docs/nodes-and-clients/run-a-node/#requirements). Most clients are not optimized for this feature and their archives requires more than 12TB of space. In contrast, implementations like Erigon can store the same data in under 3TB which makes them the most effective way of running an archive node.
 
 ## Recommended practices
 
-Apart from general [recommendations for running a node](developers/docs/nodes-and-clients/run-a-node/), an archive node may be more demanding on hardware and maintenance. Considering Erigons [key features](https://github.com/ledgerwatch/erigon#key-features), the most practical approach is using the [Erigon](https://ethereum.org/en/developers/docs/nodes-and-clients/#erigon) client implementation.
+Apart from general [recommendations for running a node](developers/docs/nodes-and-clients/run-a-node/), an archive node may be more demanding on hardware and maintenance. Considering Erigons [key features](https://github.com/ledgerwatch/erigon#key-features), the most practical approach is using the [Erigon](/developers/docs/nodes-and-clients/#erigon) client implementation.
 
 ### Hardware
 

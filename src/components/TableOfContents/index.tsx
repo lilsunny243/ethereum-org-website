@@ -12,6 +12,7 @@ import {
   ListItem,
   Show,
   Switch,
+  useToken,
 } from "@chakra-ui/react"
 import { FaGithub } from "react-icons/fa"
 import { useActiveHash } from "../../hooks/useActiveHash"
@@ -22,6 +23,9 @@ import Translation from "../Translation"
 import Mobile from "./TableOfContentsMobile"
 import ItemsList from "./ItemsList"
 import { getCustomId, Item, outerListProps } from "./utils"
+import { trackCustomEvent } from "../../utils/matomo"
+
+export { Item }
 
 export interface IProps extends BoxProps {
   items: Array<Item>
@@ -42,6 +46,8 @@ const TableOfContents: React.FC<IProps> = ({
   ...rest
 }) => {
   const { isZenMode, handleZenModeChange } = useContext(ZenModeContext)
+  // TODO: Replace with direct token implementation after UI migration is completed
+  const lgBp = useToken("breakpoints", "lg")
 
   const titleIds: Array<string> = []
 
@@ -79,7 +85,7 @@ const TableOfContents: React.FC<IProps> = ({
 
   return (
     // TODO: Switch to `above="lg"` after completion of Chakra Migration
-    <Show breakpoint="(min-width: 1025px)">
+    <Show above={lgBp}>
       <Box
         as="aside"
         position="sticky"
@@ -118,26 +124,15 @@ const TableOfContents: React.FC<IProps> = ({
                 </FormLabel>
                 <Switch
                   id="zen-mode"
-                  size="sm"
-                  // TODO: Consider moving the below styling to the custom Chakra Theme
-                  sx={{
-                    "& .chakra-switch__track": {
-                      background: "transparent",
-                      border: "2px solid",
-                      borderColor: "secondary",
-                      p: 0,
-                      "&[data-checked]": {
-                        background: "secondary",
-                      },
-                    },
-                    "& .chakra-switch__thumb": {
-                      background: "ednBackground",
-                      outline: "2px solid",
-                      outlineColor: "secondary",
-                    },
-                  }}
                   isChecked={isZenMode}
-                  onChange={() => handleZenModeChange()}
+                  onChange={() => {
+                    handleZenModeChange()
+                    trackCustomEvent({
+                      eventCategory: "zen mode",
+                      eventAction: "click",
+                      eventName: isZenMode ? "activate" : "deactivate",
+                    })
+                  }}
                 />
               </FormControl>
             </Flex>

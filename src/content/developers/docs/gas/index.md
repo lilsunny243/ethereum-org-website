@@ -85,7 +85,9 @@ It's also important to note it is unlikely we will see extended spikes of full b
 
 Before the London Upgrade, miners would receive the total gas fee from any transaction included in a block.
 
-With the new base fee getting burned, the London Upgrade introduced a priority fee (tip) to incentivize miners to include a transaction in the block. Without tips, miners would find it economically viable to mine empty blocks, as they would receive the same block reward. Under normal conditions, a small tip provides miners a minimal incentive to include a transaction. For transactions that need to get preferentially executed ahead of other transactions in the same block, a higher tip will be necessary to attempt to outbid competing transactions.
+With the new base fee getting burned, the London Upgrade introduced a priority fee (tip) to incentivize miners to include a transaction in the block. Without tips, miners would find it economically viable to mine empty blocks, as they would receive the same block reward. Under normal conditions, a small tip gave miners a minimal incentive to include a transaction. For transactions that needed to get preferentially executed ahead of other transactions in the same block, a higher tip was necessary to attempt to outbid competing transactions.
+
+Ethereum has since swapped its proof-of-work-based consensus mechanism for one based on proof-of-stake, but the base fee, priority fee and burning mechanism stayed the same. The only difference is, in today's system, miners are replaced with validators who secure the network by sending their ETH to a smart contract rather than proof-of-work mining.
 
 ### Max fee {#maxfee}
 
@@ -120,7 +122,7 @@ _Diagram adapted from [Ethereum EVM illustrated](https://takenobu-hs.github.io/d
 
 Gas limit refers to the maximum amount of gas you are willing to consume on a transaction. More complicated transactions involving [smart contracts](/developers/docs/smart-contracts/) require more computational work, so they require a higher gas limit than a simple payment. A standard ETH transfer requires a gas limit of 21,000 units of gas.
 
-For example, if you put a gas limit of 50,000 for a simple ETH transfer, the EVM would consume 21,000, and you would get back the remaining 29,000. However, if you specify too little gas, for example, a gas limit of 20,000 for a simple ETH transfer, the EVM will consume your 20,000 gas units attempting to fulfill the transaction, but it will not complete. The EVM then reverts any changes, but since the miner has already done 20k gas units worth of work, that gas is consumed.
+For example, if you put a gas limit of 50,000 for a simple ETH transfer, the EVM would consume 21,000, and you would get back the remaining 29,000. However, if you specify too little gas, for example, a gas limit of 20,000 for a simple ETH transfer, the EVM will consume your 20,000 gas units attempting to fulfill the transaction, but it will not complete. The EVM then reverts any changes, but since the validator has already done 20k gas units worth of work, that gas is consumed.
 
 ## Why can gas fees get so high? {#why-can-gas-fees-get-so-high}
 
@@ -130,13 +132,13 @@ Gas price alone does not actually determine how much we have to pay for a partic
 
 ## Initiatives to reduce gas costs {#initiatives-to-reduce-gas-costs}
 
-The Ethereum [scalability upgrades](/upgrades/) should ultimately address some of the gas fee issues, which will, in turn, enable the platform to process thousands of transactions per second and scale globally.
+The Ethereum [scalability upgrades](/roadmap/) should ultimately address some of the gas fee issues, which will, in turn, enable the platform to process thousands of transactions per second and scale globally.
 
 Layer 2 scaling is a primary initiative to greatly improve gas costs, user experience and scalability. [More on layer 2 scaling](/developers/docs/scaling/#layer-2-scaling).
 
 ## Strategies for you to reduce gas costs {#strategies-for-you-to-reduce-gas-costs}
 
-If you are looking to reduce gas costs for your transactions, you can set a tip to indicate the priority level of your transaction. Miners will 'work on' and execute transactions that offer a higher tip per gas, as they get to keep the tips that you pay and will be less inclined to execute transactions with lower tips set.
+If you are looking to reduce gas costs for your transactions, you can set a tip to indicate the priority level of your transaction. Validators will 'work on' and execute transactions that offer a higher tip per gas, as they get to keep the tips that you pay and will be less inclined to execute transactions with lower tips set.
 
 If you want to monitor gas prices, so you can send your ETH for less, you can use many different tools such as:
 
@@ -155,6 +157,7 @@ If you want to monitor gas prices, so you can send your ETH for less, you can us
 - [Ethereum Gas Explained](https://defiprime.com/gas)
 - [Reducing the gas consumption of your Smart Contracts](https://medium.com/coinmonks/8-ways-of-reducing-the-gas-consumption-of-your-smart-contracts-9a506b339c0a)
 - [Proof of Stake versus Proof of Work](https://blockgeeks.com/guides/proof-of-work-vs-proof-of-stake/)
+- [Gas Optimization Strategies for Developers](https://www.alchemy.com/overviews/solidity-gas-optimization)
 
 ## Related topics {#related-topics}
 
