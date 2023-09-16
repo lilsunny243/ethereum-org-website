@@ -270,7 +270,6 @@ Here is a list of some of the most popular Ethereum node providers, feel free to
 - [**QuickNode**](https://www.quicknode.com)
   - [Docs](https://www.quicknode.com/docs/)
   - Features
-    - Industry-leading performance and reliability
     - 24/7 technical support & dev Discord community
     - Geo-balanced, multi cloud/metal, low-latency network
     - Multichain support (Optimism, Arbitrum, Polygon + 11 others)
@@ -339,7 +338,6 @@ Here is a list of some of the most popular Ethereum node providers, feel free to
     - Unlimited TX fee and infinite Gas for sending transactions
     - Fastest getting of the new block and reading of the blockchain
     - The best price per API call guarantee
-      
 - [**Chainbase**](https://www.chainbase.com/)
   - [Docs](https://docs.chainbase.com)
   - Features
@@ -360,6 +358,19 @@ Here is a list of some of the most popular Ethereum node providers, feel free to
   - RPC endpoints offer authenticated access to API’s, hassle free management with intuitive dashboard and analytics.
   - Provides both managed cloud and bring your own cloud options to choose from and supports all major cloud providers like AWS, Azure, Google Cloud, Digital Ocean and on-premise.
   - We use intelligent routing to hit the node closest to your user every time
+
+[**Tokenview**](https://services.tokenview.io/)
+
+- [Docs](https://services.tokeniew/docs?type=nodeService)
+- Features
+  - 24/7 technical support & Dev Telegram community
+  - Multichain support (Bitcoin, Ethereum, Tron, BNB Smart Chain, Ethereum Classic)
+  - Both rpc and wss endpoints are open to use
+  - Unlimited access to archive data API
+  - Dashboard with Request Explorer and Mempool Watcher
+  - NFT data API and Webhook notify
+  - Pay in Crypto
+  - External support for extra behavior requirements
 
 ## Further reading {#further-reading}
 

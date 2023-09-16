@@ -6,7 +6,6 @@ import {
   Img,
   ListItem,
   SimpleGrid,
-  Text,
   UnorderedList,
 } from "@chakra-ui/react"
 
@@ -19,6 +18,7 @@ import Translation from "../../components/Translation"
 import PageMetadata from "../../components/PageMetadata"
 import ProductCard from "../../components/ProductCard"
 import FeedbackCard from "../../components/FeedbackCard"
+import Text from "../../components/OldText"
 
 import { getImage } from "../../utils/image"
 
@@ -318,7 +318,7 @@ export const query = graphql`
     hero: file(relativePath: { eq: "developers-eth-blocks.png" }) {
       childImageSharp {
         gatsbyImageData(
-          width: 800
+          width: 700
           layout: CONSTRAINED
           placeholder: BLURRED
           quality: 100

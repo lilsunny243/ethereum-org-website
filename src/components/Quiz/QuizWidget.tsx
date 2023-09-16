@@ -12,7 +12,6 @@ import {
   Flex,
   Heading,
   Icon,
-  Text,
   Spinner,
   Stack,
   Container,
@@ -25,6 +24,7 @@ import Button from "../Button"
 import QuizRadioGroup from "./QuizRadioGroup"
 import QuizSummary from "./QuizSummary"
 import Translation from "../Translation"
+import Text from "../OldText"
 
 import {
   CorrectIcon,
@@ -309,7 +309,7 @@ const QuizWidget: React.FC<IProps> = ({
 
   // Render QuizWidget component
   return (
-    <Flex width="full" direction="column" alignItems="center">
+    <Flex width="full" direction="column" alignItems="center" my={16}>
       {/* Hide heading if quiz is not in Learning Quizzes Hub page */}
       {isStandaloneQuiz && (
         <Heading
